@@ -1,0 +1,40 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.9'
+
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+gem 'jquery-rails'
+gem 'haml'
+gem 'roar', ">= 0.11.9"
+gem 'roar-rails'
+gem 'faraday'
+gem 'active_attr'
+
+# TODO see if there is a way to decouple representer from Fruit class
+# don't require fruit_orchard, use only representations
+# this is because we have Fruit class in our namespace and in fruit orchard
+# if fruit orchard is required, it will take precedence over our class which has Rails related behaviour added
+
+%w(
+  book_of_orcharding
+).each do |dependency|
+  gem dependency, :path => File.expand_path("../../#{dependency}", __FILE__)
+end
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', :platform => :ruby
+  gem 'uglifier', '>= 1.0.3'
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem 'twitter-bootstrap-rails'
+end
+
+group :development do
+  gem 'haml-rails'
+end
